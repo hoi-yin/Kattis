@@ -1,0 +1,54 @@
+import java.util.*;
+import java.io.*;
+public class conformity {
+  public static void main(String[] args)throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    PrintWriter output = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+
+    int NumofStuds;
+    String[] Line1 = br.readLine().split(" ");
+    NumofStuds = Integer.parseInt(Line1[0]);
+    
+    int tracker,tracker1;
+    tracker = 1;
+    tracker1 = 0;
+    HashMap<String,Integer> Info = new HashMap<String,Integer>();
+    HashMap<Integer,String> Info1 = new HashMap<Integer,String>();
+    for(int i = 0 ; i < NumofStuds ; i++ ){
+        String[] Line2 = br.readLine().split(" ");
+        int [] codes = new int[5];
+        codes[0] = Integer.parseInt(Line2[0]);
+        codes[1] = Integer.parseInt(Line2[1]);
+        codes[2] = Integer.parseInt(Line2[2]);
+        codes[3] = Integer.parseInt(Line2[3]);
+        codes[4] = Integer.parseInt(Line2[4]);
+        Arrays.sort(codes);
+        String code = Integer.toString(codes[0]) + " " + Integer.toString(codes[1]) + " " + Integer.toString(codes[2]) + " "+Integer.toString(codes[3]) + " "+Integer.toString(codes[4]);
+        
+        if(Info.get(code)==null){
+            Info.put(code,1);
+            Info1.put(tracker1,code);
+            tracker1 = tracker1+1;
+        }
+        else{
+            int count = Info.get(code);
+            count = count+1;
+            Info.remove(code);
+            Info.put(code,count);
+            if(count>tracker){
+                tracker = tracker + 1;
+            }
+            
+        }
+    }
+    int number = 0;
+    for (int j = 0; j<tracker1 ; j++){
+        if(Info.get(Info1.get(j))== tracker){
+            number = number + tracker;
+        }
+    }
+    output.println(number);
+    output.flush();
+    output.close();
+  }
+}

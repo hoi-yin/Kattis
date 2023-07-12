@@ -1,0 +1,53 @@
+import java.util.*;
+import java.io.*;
+public class coconut {
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int number,syll;
+        String[] Line1 = br.readLine().split(" ");
+        syll = Integer.parseInt(Line1[0]);
+        number = Integer.parseInt(Line1[1]);
+        
+        LinkedList<Player> dic=new LinkedList<Player>();
+        for ( int i = 1 ; i<=number ; i++){
+            dic.add(new Player(i,"folded"));
+        }
+        int track = 0;
+        for( int j=0 ; j<=(5*number)-2 ; j++){
+            track = (track + syll - 1)%dic.size();
+            int a = (dic.get(track)).getNumber();
+            if((dic.get(track)).getState().equals("folded")){
+                dic.set(track,new Player(a,"fist"));
+                dic.add(track+1,new Player(a,"fist"));
+            }
+            else if ((dic.get(track)).getState().equals("fist")){
+                dic.set(track,new Player(a,"down"));
+                track = track + 1;
+            }
+            else if ((dic.get(track)).getState().equals("down")){
+                dic.remove(track);
+            }
+        }
+    System.out.println(dic.get(0).getNumber());
+    }
+}
+        
+class Player {
+    
+    private final int Number;
+    private final String State;
+
+    Player(int Number, String State) {
+        this.Number = Number;
+        this.State = State;
+    }
+
+    int getNumber() {
+        return this.Number;
+    }
+
+    String getState() {
+        return this.State;
+    }
+}

@@ -1,0 +1,42 @@
+import java.util.*;
+public class cardtrading {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int numofcard, difcardtypes, numofcombos;
+        numofcard = sc.nextInt();
+        difcardtypes = sc.nextInt();
+        numofcombos = sc.nextInt();
+        int [] hand = new int[difcardtypes];
+        for( int i = 0 ; i<numofcard ; i++){
+            int tracker;
+            tracker = sc.nextInt();
+            hand[tracker-1]= hand[tracker-1]+1;
+        }
+        int [][] fk = new int[difcardtypes][3];
+    
+        for ( int j=0 ; j<difcardtypes ; j++){
+            int buy,sell,num,finalbuy,finalsell,finalprof;
+            buy = sc.nextInt();
+            sell = sc.nextInt();
+            num = hand[j];
+            finalbuy = (2-num)*buy;
+            finalsell = num*sell;
+            finalprof = finalsell+finalbuy;
+            fk[j][0] = finalbuy;
+            fk[j][1] = finalsell;
+            fk[j][2] = finalprof;
+        }
+
+        Arrays.sort(fk, Comparator.comparingDouble(o -> o[2]));
+
+        long Ihatemylife = 0;
+        for ( int ccb=0 ; ccb<numofcombos ; ccb++){
+            Ihatemylife = Ihatemylife - fk[ccb][0];
+        }
+        for ( int lj = numofcombos ; lj< difcardtypes  ; lj++){
+            Ihatemylife = Ihatemylife + fk[lj][1];
+            
+        }        
+        System.out.println(Ihatemylife);
+    }
+}

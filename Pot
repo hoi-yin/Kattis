@@ -1,0 +1,21 @@
+import java.util.Scanner;
+
+public class pot {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        
+        int a,product;
+        a = scan.nextInt();
+        product = 0;
+        
+        for( int i = 0 ; i<a; i++){
+            int b,d,e;
+            b = scan.nextInt();
+            String c = Integer.toString(b);
+            d = Integer.valueOf(c.substring(0,c.length()-1));
+            e = Integer.valueOf(c.substring(c.length()-1,c.length()));
+            product = product + (int)Math.pow(d, e);
+        }
+        System.out.println(product);
+    }
+}

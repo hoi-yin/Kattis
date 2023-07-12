@@ -1,0 +1,57 @@
+import java.util.*;
+public class t9spelling{
+    public static void main(String[]args){
+        Scanner sc = new Scanner(System.in);
+        int NumOfTC;
+        NumOfTC = Integer.parseInt(sc.nextLine());
+        String [] dic = new String[126];
+        String str = "abcdefghijklmnopqrstuvwxyz ";
+        dic[(int)(str.charAt(0))] = "2";
+        dic[(int)(str.charAt(1))] = "22";
+        dic[(int)(str.charAt(2))] = "222";
+        dic[(int)(str.charAt(3))] = "3";
+        dic[(int)(str.charAt(4))] = "33";
+        dic[(int)(str.charAt(5))] = "333";
+        dic[(int)(str.charAt(6))] = "4";
+        dic[(int)(str.charAt(7))] = "44";
+        dic[(int)(str.charAt(8))] = "444";
+        dic[(int)(str.charAt(9))] = "5";
+        dic[(int)(str.charAt(10))] = "55";
+        dic[(int)(str.charAt(11))] = "555";
+        dic[(int)(str.charAt(12))] = "6";
+        dic[(int)(str.charAt(13))] = "66";
+        dic[(int)(str.charAt(14))] = "666";
+        dic[(int)(str.charAt(15))] = "7";
+        dic[(int)(str.charAt(16))] = "77";
+        dic[(int)(str.charAt(17))] = "777";
+        dic[(int)(str.charAt(18))] = "7777";
+        dic[(int)(str.charAt(19))] = "8";
+        dic[(int)(str.charAt(20))] = "88";
+        dic[(int)(str.charAt(21))] = "888";
+        dic[(int)(str.charAt(22))] = "9";
+        dic[(int)(str.charAt(23))] = "99";
+        dic[(int)(str.charAt(24))] = "999";
+        dic[(int)(str.charAt(25))] = "9999";
+        dic[(int)(str.charAt(26))] = "0";
+        
+        for ( int i=1 ; i<=NumOfTC ; i++ ){
+            
+            String TC = sc.nextLine();
+            int len;
+            len = TC.length();
+            String Final = dic[(int)(TC.charAt(0))];
+            
+            for ( int j=1 ; j<len ; j++ ){
+                String first = dic[(int)(TC.charAt(j))];
+                String second = dic[(int)(TC.charAt(j-1))];
+                if(first.contains(second)|| second.contains(first)){
+                    Final = Final + " " + first;
+                }
+                else{
+                    Final = Final + first;
+                }
+            }
+            System.out.println("Case #"+String.valueOf(i)+": "+Final);
+        }
+    }
+}

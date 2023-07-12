@@ -1,0 +1,39 @@
+import java.util.*;
+public class peasoup{
+    public static void main(String[]args){
+        Scanner sc = new Scanner(System.in);
+        int a,Main;
+        Main = 0;
+        a = Integer.parseInt(sc.nextLine());
+        ArrayList<String> rest = new ArrayList<String>();
+        for(int i =0; i<a ; i++){
+            int Number;
+            Number = Integer.parseInt(sc.nextLine());
+            String Name = sc.nextLine();
+            int tracker;
+            tracker = 0;
+            ArrayList<String> food = new ArrayList<String>();
+            for(int j = 0; j<Number ; j++){
+                String Item = sc.nextLine();
+                if (Item.equals("pancakes")&&food.contains("pancakes")==false){
+                    tracker = tracker + 1;
+                    food.add("pancakes");
+                }
+                else if (Item.equals("pea soup")&&food.contains("pea soup")==false){
+                    tracker = tracker + 1;
+                    food.add("pea soup");
+                }
+            }
+            if(tracker >= 2){
+                rest.add(Name);
+                Main = Main + 1;
+            }
+        }
+        if(Main >= 1){
+            System.out.println(rest.get(0));
+        }
+        else {
+            System.out.println("Anywhere is fine I guess");
+        }
+    }
+}

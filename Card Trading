@@ -1,0 +1,44 @@
+import java.io.*;
+import java.util.*;
+public class cardtrading {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        String[] Line1 = br.readLine().split(" ");
+        int Nnumberofcards = Integer.parseInt(Line1[0]);
+        int Tcardtypes = Integer.parseInt(Line1[1]);
+        int Kcombosindeck = Integer.parseInt(Line1[2]);
+        
+        String[] Line2 = br.readLine().split(" ");
+        int [] cards = new int[Tcardtypes];
+        for(int i = 0; i<Nnumberofcards; i++){
+            int cardnumber;
+            cardnumber = Integer.parseInt(Line2[i]);
+            cards[cardnumber-1]=cards[cardnumber-1]+1;
+        }
+        
+        ArrayList<Coins> info = new ArrayList<Coins>();
+        for(int j = 0; j<Tcardtypes ; j++ ){
+            String[] Line3 = br.readLine().split(" ");
+            int buyprice = Integer.parseInt(Line3[0]);
+            int sellprice = Integer.parseInt(Line3[1]);
+            int buyaction = (2-cards[j])*buyprice;
+            int sellaction = cards[j]*sellprice;
+            int oppcostaction = buyaction + sellaction;
+            info.add(new Coins(j+1,buyaction,sellaction,oppcostaction));
+        }
+        Collections.sort(info, new infoComparator());
+
+        long profit = 0;
+        
+        for(int k = 0; k<Kcombosindeck; k++){
+            Coins reference = info.get(k);
+            profit = profit - reference.getbuy();
+        }
+        for(int l = Kcombosindeck; l<Tcardtypes; l++){
+            Coins reference1 = info.get(l);
+            profit = profit + reference1.getsell();
+        }
+        System.out.println(profit);
+    }
+}

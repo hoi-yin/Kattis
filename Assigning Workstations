@@ -1,0 +1,87 @@
+import java.util.*;
+import java.io.*;
+public class workstations {
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter output = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    
+        int numofpeeps,numofmin;
+        String[] Line1 = br.readLine().split(" ");
+        numofpeeps = Integer.parseInt(Line1[0]);
+        numofmin = Integer.parseInt(Line1[1]);
+
+        PriorityQueue<researchers> researcher = new PriorityQueue<researchers>(numofpeeps, new infoComparator());
+        PriorityQueue<Integer> time = new PriorityQueue<Integer>();
+
+        int fin;
+        fin = 0;
+
+        for (int i = 0; i < numofpeeps; i++) { 
+            String[] Line2 = br.readLine().split(" ");
+            researcher.add(new researchers(Integer.parseInt(Line2[0]),Integer.parseInt(Line2[1])));
+        }
+
+        for (int j = 0; j < numofpeeps; j++){
+            researchers temp = researcher.peek();
+            int tracker = time.size();
+
+            for(int k = 0; k<tracker; k++){
+                if(time.peek() + numofmin < temp.getarrival()){
+                    time.poll();
+                }
+                else{
+                    break;
+                }
+            }
+            if (time.size()!=0){
+                int time1,time2,time3;
+                time1 = temp.getarrival();
+                time3 = time.peek();
+                time2 = time3 + numofmin;
+                if(time1 <= time2 && time3 <= time1){
+                    time.poll();
+                    fin = fin + 1;
+                }
+            }
+            time.add(researcher.poll().getleave());
+        }
+        output.println(fin);
+        output.flush();
+        output.close();
+    }
+}
+
+class researchers {
+    
+    private final int arrival;
+    private final int stay;
+
+    researchers(int arrival, int stay) {
+        this.arrival = arrival;
+        this.stay = stay;
+    }
+
+    int getarrival() {
+        return this.arrival;
+    }
+
+    int getstay() {
+        return this.stay;
+    }
+
+    int getleave() {
+        return this.arrival + this.stay;
+    }
+}
+
+class infoComparator implements Comparator<researchers> {
+    public int compare(researchers p1, researchers p2) {
+        if(p1.getarrival()<p2.getarrival()){
+            return -1;
+        } else if (p1.getarrival()>p2.getarrival()){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+}

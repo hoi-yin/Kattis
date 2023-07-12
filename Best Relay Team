@@ -1,0 +1,91 @@
+import java.util.*;
+import java.io.*;
+public class bestrelayteam {
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int NumofAth;
+        String[] Line1 = br.readLine().split(" ");
+        NumofAth = Integer.parseInt(Line1[0]);
+        
+        ArrayList<Athlete> info = new ArrayList<Athlete>();
+        ArrayList<Athlete> tracker = new ArrayList<Athlete>();
+        String[] everyone = new String[NumofAth];
+        for(int i = 0 ; i<NumofAth ; i++){
+            String[] Info = br.readLine().split(" ");
+            String a = Info[0];
+            double b = Double.parseDouble(Info[1]);
+            double c = Double.parseDouble(Info[2]);
+            int d = i;
+            info.add(new Athlete(a,b,c,d));
+            everyone[i] = a;
+        }
+        Collections.sort(info, new infoComparator());
+
+        double [][] timing = new double[NumofAth][5];
+        for(int z = 0 ; z<NumofAth ; z++){
+            Athlete number1 = info.get(z);
+            timing[z][0] = number1.getid();
+            timing[z][4] = number1.getfirst();
+            tracker.clear();
+            tracker.addAll(info);
+            tracker.remove(z);
+            for(int b = 0 ; b<3 ; b++ ){
+                Athlete number2 = tracker.get(b);
+                timing[z][b+1] =  number2.getid();
+                timing[z][4] = timing[z][4] + number2.getsecond();
+            }
+        }
+        Arrays.sort(timing, Comparator.comparingDouble(o -> o[4]));
+        Double T = timing[0][4];
+
+        System.out.println(T);
+
+        for( int c = 0 ; c<4 ; c++ ){
+            int v =(int)(timing[0][c]);
+            System.out.println(everyone[v]);
+        }
+    }
+}
+class Athlete {
+    
+    private final String Name;
+    private final double first;
+    private final double second;
+    private final int id;
+
+    Athlete(String Name, double first, double second, int id) {
+        this.Name = Name;
+        this.first = first;
+        this.second = second;
+        this.id = id;
+    }
+
+    String getName() {
+        return this.Name;
+    }
+
+    double getfirst() {
+        return this.first;
+    }
+
+    double getsecond() {
+        return this.second;
+    }
+
+    int getid() {
+        return this.id;
+    }
+}
+
+class infoComparator implements Comparator<Athlete> {
+    public int compare(Athlete p1, Athlete p2) {
+        if(p1.getsecond()<p2.getsecond()){
+            return -1;
+        } else if (p1.getsecond()>p2.getsecond()){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+}

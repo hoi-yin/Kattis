@@ -1,0 +1,105 @@
+import java.util.*;
+import java.io.*;
+public class teque {
+  public static void main(String[] args)throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    PrintWriter output = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+
+    int NumofSteps;
+    String[] Line1 = br.readLine().split(" ");
+    NumofSteps = Integer.parseInt(Line1[0]);
+
+    HashMap<Integer,Integer> dic1 = new HashMap<Integer,Integer>();
+    HashMap<Integer,Integer> dic2 = new HashMap<Integer,Integer>();
+    int index1,index2,index3,index4;
+    index1 = 0;
+    index2 = 0;
+    index3 = 0;
+    index4 = 0;
+    for (int i=0 ; i<NumofSteps ; i++){
+      String[] Line2 = br.readLine().split(" ");
+      String L2P1 = Line2[0];
+      int L2P2 = Integer.parseInt(Line2[1]);
+
+
+      if(L2P1.equals("push_back")){
+        if(dic2.size()==0 && dic1.size()==0){
+          dic1.put(index1,L2P2);
+        }
+        else if (dic2.size()==0){
+          dic2.put(index3,L2P2);
+        }
+        else if(dic1.size()==dic2.size()){
+          int track = dic2.get(index3);
+          dic2.remove(index3);
+          index3 = index3 + 1;
+          index2 = index2 + 1;
+          dic1.put(index2,track);
+          index4 = index4 + 1;
+          dic2.put(index4,L2P2);
+        }
+        else if (dic1.size()>dic2.size()){
+          index4 = index4 + 1;
+          dic2.put(index4,L2P2);
+        }
+      }
+      else if (L2P1.equals("push_front")){
+        if(dic2.size()==0 && dic1.size()==0){
+          dic1.put(index1,L2P2);
+        }
+        else if(dic2.size()==0){
+          index1 = index1 -1;
+          dic1.put(index1,L2P2);
+          int track = dic1.get(index2);
+          dic1.remove(index2);
+          index2 = index2 -1;
+          dic2.put(index3,track);
+        }
+        else if (dic1.size()==dic2.size()){
+          index1 = index1 -1;
+          dic1.put(index1,L2P2);
+        }
+        else if (dic1.size()>dic2.size()){
+          index1 = index1 -1;
+          dic1.put(index1,L2P2);
+          int track = dic1.get(index2);
+          dic1.remove(index2);
+          index2 = index2 -1;
+          index3 = index3 -1;
+          dic2.put(index3,track);
+        }
+      }
+      else if (L2P1.equals("push_middle")){
+        if(dic2.size()==0 && dic1.size()==0){
+          dic1.put(index1,L2P2);
+        }
+        else if (dic2.size()==0){
+          dic2.put(index3,L2P2);
+        }
+        else if (dic1.size()==dic2.size()){
+          index2 = index2 + 1;
+          dic1.put(index2,L2P2);
+        }
+        else if (dic1.size()>dic2.size()){
+          index3 = index3 -1;
+          dic2.put(index3,L2P2);
+        }
+      }
+      else if (L2P1.equals("get")){
+
+        if(L2P2>=dic1.size()){
+          int count = L2P2 - dic1.size();
+          count = count + index3;
+          output.println(dic2.get(count));
+        }
+        else{
+          int count = L2P2;
+          count = count + index1;
+          output.println(dic1.get(count));
+        }
+      }
+    }
+    output.flush();
+    output.close();
+  }
+}

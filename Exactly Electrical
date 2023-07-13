@@ -1,0 +1,31 @@
+import java.util.*;
+import java.io.*;
+public class exactlyelectrical  {
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter output = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+        
+        String[] Line1 = br.readLine().split(" ");
+        int x1 = Integer.parseInt(Line1[0]);
+        int y1 = Integer.parseInt(Line1[1]);
+        String[] Line2 = br.readLine().split(" ");
+        int x2 = Integer.parseInt(Line2[0]);
+        int y2 = Integer.parseInt(Line2[1]);
+        
+        String[] Line3 = br.readLine().split(" ");
+        int xdif = Math.abs(x1-x2);
+        int ydif = Math.abs(y1-y2);
+        int bat = Integer.parseInt(Line3[0]);
+        int sum = bat - (xdif + ydif) ;
+        
+        
+        if(sum%2==0 && sum>=0){
+            output.println("Y");
+        }
+        else{
+            output.println("N");
+        }
+        output.flush();
+        output.close();
+    }
+}

@@ -1,0 +1,30 @@
+import java.util.*;
+import java.io.*;
+public class fizzbuzz {
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter output = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+        
+        String[] Line1 = br.readLine().split(" ");
+        int x = Integer.parseInt(Line1[0]);
+        int y = Integer.parseInt(Line1[1]);
+        int n = Integer.parseInt(Line1[2]);
+        
+        for(int i = 1; i <=n ; i++){
+            if (i%x == 0 && i%y == 0){
+                output.println("FizzBuzz");
+            }
+            else if(i%x == 0){
+                output.println("Fizz");
+            }
+            else if(i%y == 0){
+                output.println("Buzz");
+            }
+            else{
+                output.println(i);
+            }
+        }
+        output.flush();
+        output.close();
+    }
+}

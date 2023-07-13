@@ -1,0 +1,33 @@
+import java.util.*;
+import java.io.*;
+public class sumkindofproblem {
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter output = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+        
+        String[] Line1 = br.readLine().split(" ");
+        int numofsets = Integer.parseInt(Line1[0]);
+        for(int i=0; i<numofsets; i++){
+            String[] Line2 = br.readLine().split(" ");
+            output.print(Integer.parseInt(Line2[0]));
+            output.print(" ");
+            int N = Integer.parseInt(Line2[1]);
+            int s1,s2,s3,tracker1,tracker2,tracker3,counter;
+            s1 = s2 = s3 = 0;
+            counter = 1;
+            for(int j=1; j<=N; j++){
+                s1 = s1 + j;
+                s2 = s2 + j*2 -1 ;
+                s3 = s3 + j*2;
+            }
+            output.print(s1);
+            output.print(" ");
+            output.print(s2);
+            output.print(" ");
+            output.print(s3);
+            output.println();
+        }
+        output.flush();
+        output.close();
+    }
+}

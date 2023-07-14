@@ -1,0 +1,77 @@
+import java.util.*;
+import java.io.*;
+public class kattissquest {
+  public static void main(String[] args)throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    PrintWriter output = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    
+    int NumofSteps,tracker;
+    String[] Line1 = br.readLine().split(" ");
+    NumofSteps = Integer.parseInt(Line1[0]);
+    tracker = 0;
+    TreeMap<Integer,TreeMap<Integer,Integer>> TreeOfDestruction = new TreeMap<>();
+    
+    for(int i=0; i<NumofSteps; i++){
+        String[] Line2 = br.readLine().split(" ");
+        String Act = Line2[0];
+
+        if(Act.equals("add")){
+            int energy = Integer.parseInt(Line2[1]);
+            int money = Integer.parseInt(Line2[2]);
+            if (TreeOfDestruction.containsKey(energy)==false){
+                TreeMap<Integer, Integer> temp = new TreeMap<>();
+                temp.put(money,1);
+                TreeOfDestruction.put(energy,temp);
+                tracker = tracker + 1;
+            }
+            else{
+                TreeMap<Integer, Integer> tem = new TreeMap<>();
+                tracker = tracker + 1;
+                tem = TreeOfDestruction.get(energy);
+                if (tem.containsKey(money)== false){
+                    tem.put(money,1);
+                    TreeOfDestruction.put(energy,tem);
+                }
+                else{
+                    tem.put(money,tem.get(money)+1);
+                    TreeOfDestruction.put(energy,tem);
+                }
+            }
+        }
+        else if (Act.equals("query")){
+            long total = 0;
+            int energyleft = Integer.parseInt(Line2[1]);
+            for (int j=0; j<tracker; j++){
+                if (TreeOfDestruction.floorKey(energyleft)==null){
+                    break;
+                }
+                else{
+                    int actionenergy = TreeOfDestruction.floorKey(energyleft);
+                    TreeMap<Integer, Integer> temp2 = new TreeMap<>();
+                    temp2 = TreeOfDestruction.get(actionenergy);
+                    int mostmoney = temp2.floorKey(100000);
+                    energyleft = energyleft - actionenergy;
+                    total = total + mostmoney;
+                    int counter = temp2.get(mostmoney)-1;
+                    if (counter == 0){
+                        temp2.remove(mostmoney);
+                    }
+                    else{
+                        temp2.put(mostmoney,counter);
+                    }
+                    if(temp2.size()==0){
+                        TreeOfDestruction.remove(actionenergy);
+                    }   
+                    else{
+                        TreeOfDestruction.put(actionenergy,temp2);
+                    }
+                }
+                
+            }
+            output.println(total);
+        }
+    }
+    output.flush();
+    output.close();
+  }
+}

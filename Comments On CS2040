@@ -1,0 +1,49 @@
+Taken in AY22/23 ST2 with Prof Chong Ket Fah
+
+The Module covers the following topics
+1. Intro to Java
+2. Abstract Data Type
+3. Analysis of Algorithm
+- Time Complexity
+4. Sorting
+- Selection, Bubble, Insertion, Merge, Quick, Radix, Built-In methods
+5. Lists
+- Array lists, Linked lists (Basic, Tailed, Circular, Doubly)
+6. Stacks and Queues
+7. Hash tables
+8. Binary Heap and Priority Queue
+9. Union-Find Disjoint Sets
+10. Binary Search Tree
+11. AVL Tree and Balancing
+12. The Foundations Of Graphs
+- Adjacency Matrix, Adjacency List, Edge List
+13. Graph Transversal
+- BFS, DFS, Reachability Test, Shortest Path Between 2 vertices, Finding Components, Topological Sort (Kahn’s Algorithm), Finding Strongly Connected Components (Kosaraju’s Algorithm)
+14. Minimum Spanning Tree
+- Prim’s Algorithm, Kruskal’s Algorithm
+15. Single-Source Shortest Paths
+- BFS Algorithm, Bellman Ford’s Algorithm, Dijkstra’s Algorithm
+16. All-Pairs Shortest Paths (Not tested)
+- Floyd Warshall’s Dynamic Programming Algorithm
+
+Module Structure :
+Finals: 40%
+Midterm: 20%
+Visualgo Quiz: 8%
+Tutorial and Lab Attendance: 5%
+One Day Assignment: 10 * 1.5%
+Take Home Assignment: 4 * 2 * 1.5%
+
+The module teaches about the different kinds of data structures. These data structures are used to solve coding problems efficiently and "easily" as compared to other methods such as hard coding. 
+
+Prof Chong Ket Fah is an excellent prof. He teaches well and gives a lot of guidance. 
+
+Personally, 
+
+Finals: 
+Midterm: 44/100 (25th percentile)
+Visualgo Quiz 1: 10/10
+Visualgo Quiz 2: 
+Tutorial and Lab Attendance: 
+One Day Assignment: 
+Take Home Assignment: 

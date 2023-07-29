@@ -1,0 +1,106 @@
+import java.util.*;
+import java.io.*;
+import static java.lang.Math.*;
+public class humancannonball {
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter IAmSoDoneWithCS2040 = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+        
+        String[] Line1 = br.readLine().split(" ");
+        double  oldx = Double.parseDouble(Line1[0]);
+        double oldy = Double.parseDouble(Line1[1]);
+        String[] Line2 = br.readLine().split(" ");
+        double newx = Double.parseDouble(Line2[0]);
+        double newy = Double.parseDouble(Line2[1]);
+        String[] Line3 = br.readLine().split(" ");
+        int NumOfCan = Integer.parseInt(Line3[0]);
+        
+        double[][] Info = new double[NumOfCan][2];
+        for(int i = 0; i<NumOfCan; i++){
+            String[] Line4 = br.readLine().split(" ");
+            Info[i][0] = Double.parseDouble(Line4[0]);
+            Info[i][1] = Double.parseDouble(Line4[1]);
+        }
+        
+        double[][] circus = new double[NumOfCan + 2][NumOfCan + 2];
+        double xdif = newx-oldx;
+        double ydif = newy-oldy;
+        circus[0][1] = circus[1][0] = sqrt(xdif*xdif + ydif*ydif)/5;
+        
+        for(int j = 0; j<NumOfCan; j++){
+            double xdif1 = oldx - Info[j][0];
+            double ydif1 = oldy - Info[j][1];
+            double distance = sqrt(xdif1*xdif1 + ydif1*ydif1);
+            circus[0][j+2] = distance/5;
+            circus[j+2][0] = (abs(distance - 50) / 5)+2;
+        }
+        
+        for(int k = 0; k<NumOfCan; k++){
+            double xdif2 = newx - Info[k][0];
+            double ydif2 = newy - Info[k][1];
+            double distance1 = sqrt(xdif2*xdif2 + ydif2*ydif2);
+            circus[1][k+2] = distance1/5;
+            circus[k+2][1] = (abs(distance1 - 50) / 5)+2;
+        }
+        
+        for(int l=0; l<NumOfCan;l++){
+            for(int m=0; m<NumOfCan; m++){
+                double a = Info[m][0] - Info[l][0];
+                double b = Info[m][1] - Info[l][1];
+                double distance2 = sqrt(a*a + b*b);
+                circus[l+2][m+2] = (abs(distance2 - 50) / 5) + 2;
+                circus[m+2][l+2] = circus[l+2][m+2];
+            }
+        }
+        PriorityQueue<double[]> FML = new PriorityQueue<double[]>(new fkingCS2040());
+        int [] tracker = new int[NumOfCan + 2];
+        double[] tracker1 = new double[NumOfCan+2];
+
+        for (int p = 0; p < NumOfCan+2; p++) {
+            tracker1[p] = 1000000000;
+        }
+
+        
+        double [] temp = new double[2];
+        temp[0] = temp[1] = 0;
+        FML.add(temp);
+        for(int n = 0; n<100000000;n++){
+            if (FML.size() == 0){
+                break;
+            }
+            else{
+                double[] temp1 = FML.poll();
+                if(tracker[(int)temp1[1]] != 1){
+                    tracker[(int)temp1[1]] = 1;
+                    for(int o = 0; o<NumOfCan + 2;o++){
+                        if (tracker[o]!=1 && tracker1[o]>temp1[0] + circus[(int)temp1[1]][o] && o!= (int)temp1[1]){
+                            tracker1[o] = temp1[0] + circus[(int)temp1[1]][o];
+                            double[] temp2 = new double[2];
+                            temp2[0] = tracker1[o];
+                            temp2[1] = o;
+                            FML.add(temp2);
+                        }
+                    }
+                }
+            }
+        }
+        IAmSoDoneWithCS2040.println(tracker1[1]);
+        IAmSoDoneWithCS2040.flush();
+        IAmSoDoneWithCS2040.close();
+    }
+}
+
+class fkingCS2040 implements Comparator<double[]> {
+    @Override
+    public int compare(double[] p1, double[] p2) {
+        if(p1[0]<p2[0]){
+            return -1;
+        }
+        else if(p1[0]>p2[0]){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+}

@@ -1,0 +1,26 @@
+import java.util.Scanner;
+public class detaileddifferences{
+    public static void main(String[]args){
+        Scanner sc = new Scanner(System.in);
+        int a;
+        a = sc.nextInt();
+        for (int i = 0; i<a ; i++){
+            int d ;
+            String b = sc.next();
+            String c = sc.next();
+            String pro = "";
+            d = c.length();
+            System.out.println(b);
+            System.out.println(c);
+            for (int j = 0 ; j<d ; j++){
+                if(b.substring(j,j+1).equals(c.substring(j,j+1))){
+                    pro = pro + ".";
+                }
+                else{
+                    pro = pro + "*";
+                }
+            }
+            System.out.println(pro);
+        }
+    }
+}

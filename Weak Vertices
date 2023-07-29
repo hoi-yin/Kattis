@@ -1,0 +1,48 @@
+import java.util.*;
+import java.io.*;
+import static java.lang.Math.*;
+public class weakvertices{
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter IAmSoDoneWithCS2040 = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+
+        for(int i=0; i<1000; i++ ){
+            String[] Line1 = br.readLine().split(" ");
+            int size = Integer.parseInt(Line1[0]);
+            if(size == -1){
+                break;
+            }
+            else{
+                int[][] info = new int[size][size];
+                for(int j=0;j<size;j++){
+                    String[] Line2 = br.readLine().split(" ");
+                    for(int k=0;k<size;k++){
+                        info[j][k] = Integer.parseInt(Line2[k]);
+                    }
+                }
+                int tracker = 0;
+                for(int l=0;l<size;l++){
+                    int counter = 0;
+                    for(int m=0;m<size;m++){
+                        for(int n=0;n<size;n++){
+                            if(info[l][m]==1 && info[l][n]==1 && info[m][n]==1){
+                                counter = 1;
+                            }
+                        }
+                    }
+                    if(counter == 0 && tracker ==0){
+                        IAmSoDoneWithCS2040.print(l);
+                        tracker = tracker + 1;
+                    }
+                    else if(counter == 0){
+                        IAmSoDoneWithCS2040.print(" ");
+                        IAmSoDoneWithCS2040.print(l);
+                    }
+                }
+            }
+            IAmSoDoneWithCS2040.println();
+        }
+        IAmSoDoneWithCS2040.flush();
+        IAmSoDoneWithCS2040.close();
+    }
+}

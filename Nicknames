@@ -1,0 +1,177 @@
+import java.io.*;
+import java.util.*;
+import static java.lang.Math.*;
+
+public class nicknames {
+    public static void main (String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter output = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+
+        int numofnames;
+        String[] Line1 = br.readLine().split(" ");
+        numofnames = Integer.parseInt(Line1[0]);
+        BST towerofdoom = new BST();
+
+        for (int i=0 ; i<numofnames ; i++){
+            String[] Line2 = br.readLine().split(" ");
+            towerofdoom.insert(Line2[0]);
+        }
+
+        int numofnicknames;
+        String[] Line3 = br.readLine().split(" ");
+        numofnicknames = Integer.parseInt(Line3[0]);
+        
+        HashMap<String, Integer> towerofinsanity = new HashMap<String, Integer>();
+
+        for (int j=0 ; j<numofnicknames ; j++){
+            String[] Line4 = br.readLine().split(" ");
+            String tempnickname = Line4[0];
+            
+            if (towerofinsanity.get(tempnickname)== null){
+                int numberofsuffering = towerofdoom.match(tempnickname);
+                towerofinsanity.put(tempnickname,numberofsuffering);
+                output.println(numberofsuffering);
+            }
+            else{
+                output.println(towerofinsanity.get(tempnickname));
+            }
+        }
+        output.flush();
+        output.close();
+    }
+}
+
+class BSTVertex {
+    BSTVertex(String v) { key = v; parent = left = right = null; height = 0; }
+    public BSTVertex parent, left, right;
+    public String key;
+    public int height; 
+    public int size; 
+}
+
+class BST {
+    public BSTVertex root;
+
+    public BST() {root = null; }
+
+    public void insert(String v) { root = insert(root, v); }
+
+    public BSTVertex insert(BSTVertex T, String v) {
+        if (T == null) {
+            return new BSTVertex(v);
+        }
+
+        if (T.key.compareTo(v) < 0) { 
+            T.right = insert(T.right, v);
+            T.right.parent = T;
+        } 
+        else { 
+            T.left = insert(T.left, v);
+            T.left.parent = T;
+        }
+        T.height = max(get_height(T.left), get_height(T.right)) + 1; 
+        T = finalrotation(T);
+        return T; 
+    }
+
+    public int get_height(BSTVertex T) {
+        if (T == null) {
+            return 0;
+        }
+        else{
+            return T.height;
+        }
+    }
+
+    public int balancefactor(BSTVertex T) {
+        if (T == null) {
+            return 0;
+        }
+        else{
+            return get_height(T.left) - get_height(T.right);
+        }
+    }
+
+    public BSTVertex finalrotation(BSTVertex T) {
+        
+        int tracker = balancefactor(T);
+        int tracker1 = balancefactor(T.left);
+        int tracker2 = balancefactor(T.right);
+
+        if (tracker > 1 && tracker1 > 0){
+            T=rotateRight(T);
+        }
+        else if(tracker > 1){
+            T.left=rotateLeft(T.left);
+            T=rotateRight(T);
+        }
+        else if(tracker < -1 && tracker2 < 0){
+            T=rotateLeft(T);
+        }
+        else if(tracker < -1){
+            T.right =rotateRight(T.right);
+            T = rotateLeft(T);
+        }
+        return T;
+    }
+
+    public BSTVertex rotateLeft(BSTVertex T) { 
+        BSTVertex W = T.right;
+        if (W.left != null) {
+            T.right = W.left;
+            W.left.parent = T;
+        } 
+        else {
+            T.right = null;
+        }
+        if (T.parent == null) {
+            root = W;
+        }
+        W.parent = T.parent;    
+        W.left = T;
+        T.parent = W;
+        T.height = max(get_height(T.left), get_height(T.right))+1;
+        W.height = max(get_height(W.left), get_height(W.right))+1;
+        return W;
+    }
+
+    public BSTVertex rotateRight(BSTVertex T) { 
+        BSTVertex W = T.left;
+        if (W.right != null) {
+            T.left = W.right;
+            W.right.parent = T;
+        } 
+        else {
+            T.left = null;
+        }
+        if (T.parent == null) {
+            root = W;
+        }
+        W.parent = T.parent;    
+        W.right = T;
+        T.parent = W;
+        T.height = max(get_height(T.left), get_height(T.right))+1;
+        W.height = max(get_height(W.left), get_height(W.right))+1;
+        return W;
+    }
+
+    public int matches(BSTVertex T, String v) {
+        if (T == null) return 0;
+        else if (T.key.compareTo(v) < 0 ){
+            return matches(T.right, v);
+        }
+        else if (T.key.indexOf(v) == 0) {
+            return 1 + matches(T.right, v) + matches(T.left, v);
+        }
+        else {
+            return matches(T.left, v);
+        }
+    }
+
+    public int match(String v) {
+        return matches(root, v);
+    }
+}
+
+
+

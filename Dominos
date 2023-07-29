@@ -1,0 +1,77 @@
+import java.util.*;
+import java.io.*;
+public class dominos {
+  public static void main(String[] args)throws IOException {
+    PrintWriter output = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    int NumofCases;
+    String[] Line1 = br.readLine().split(" ");
+    NumofCases = Integer.parseInt(Line1[0]);
+    
+    for(int i = 0; i<NumofCases ; i++){
+      String[] Line2 = br.readLine().split(" ");
+      int n,m;
+      n = Integer.parseInt(Line2[0]);
+      m = Integer.parseInt(Line2[1]);
+      int[] tracker = new int[n];
+      HashMap<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
+
+      for(int j = 0; j<n ; j++){
+        ArrayList<Integer> HitTile = new ArrayList<Integer>();
+        map.put(j,HitTile);
+      }
+
+      for(int k = 0; k<m; k++){
+        String[] Line3 = br.readLine().split(" ");
+        int Tile1 = Integer.parseInt(Line3[0])-1;
+        int Tile2 = Integer.parseInt(Line3[1])-1;
+        map.get(Tile1).add(Tile2);
+      }
+
+      ArrayList<Integer> Help = new ArrayList<Integer>();
+      for(int l=0 ; l<n; l++){
+        if(tracker[l]!=1){
+          TerminationOfDoom(map,tracker,Help,l);
+        }
+      }
+      int[] tracker1 = new int[n];
+      int push = 0;
+
+      int a = Help.size();
+      for(int o = a-1; o>=0; o--){
+        int b = Help.get(o);
+        if(tracker1[b]!=1){
+          AcceptanceOfHatred(map,tracker1,b);
+          push = push + 1;
+        }
+      }
+      output.println(push);
+    }
+    output.flush();
+    output.close();
+  }
+
+  public static void TerminationOfDoom(HashMap<Integer, ArrayList<Integer>> map,int[] tracker,ArrayList<Integer> Help,int l){
+    tracker[l] = 1;
+    int c = map.get(l).size();
+    for(int p =0; p<c ; p++){
+      int d = map.get(l).get(p);
+      if(tracker[d]!=1){
+        TerminationOfDoom(map,tracker,Help,d);
+      }
+    }
+    Help.add(l);
+  }
+
+  public static void AcceptanceOfHatred(HashMap<Integer, ArrayList<Integer>> map,int[] tracker1,int b){
+    tracker1[b] = 1;
+    int e = map.get(b).size();
+    for(int q = 0; q<e;q++){
+      int f = map.get(b).get(q);
+      if(tracker1[f]!=1){
+        AcceptanceOfHatred(map,tracker1,f);
+      }
+    }
+  }
+}

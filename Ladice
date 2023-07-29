@@ -1,0 +1,90 @@
+import java.util.*;
+import java.io.*;
+public class ladice {
+  public static void main(String[] args)throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    PrintWriter output = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    
+    int numofitems,numofdrawers;
+    String[] Line1 = br.readLine().split(" ");
+    numofitems = Integer.parseInt(Line1[0]);
+    numofdrawers = Integer.parseInt(Line1[1]);
+    UnionFind cupboard = new UnionFind(numofdrawers+1);
+    
+    for(int i = 0 ; i < numofitems ; i++){
+        String[] Line2 = br.readLine().split(" ");
+        int drawer1 = Integer.parseInt(Line2[0]);
+        int drawer2 = Integer.parseInt(Line2[1]);
+        
+        cupboard.unionSet(drawer1,drawer2);
+        int tracker = cupboard.findSet(drawer1);
+        
+        if(cupboard.get_drawers()[tracker]>cupboard.get_items()[tracker]){
+            cupboard.get_items()[tracker] = cupboard.get_items()[tracker] + 1;
+            output.println("LADICA");
+        }
+        else{
+            output.println("SMECE");
+        }
+    }
+    output.flush();
+    output.close();
+  }
+}
+    
+class UnionFind {                                              
+  public int[] p;
+  public int[] rank;
+  public int[] drawers;
+  public int[] items;
+  
+  public int[] get_drawers(){
+      return drawers;
+  }
+  
+  public int[] get_items(){
+      return items;
+  }
+
+  public UnionFind(int N) {
+    p = new int[N];
+    rank = new int[N];
+    drawers = new int[N];
+    items = new int[N];
+    for (int i = 0; i < N; i++) {
+      p[i] = i;
+      rank[i] = 0;
+      drawers[i] = 1;
+    }
+  }
+
+  public int findSet(int i) { 
+    if (p[i] == i) return i;
+    else {
+      p[i] = findSet(p[i]);
+      return p[i]; 
+    } 
+  }
+
+  public Boolean isSameSet(int i, int j) { return findSet(i) == findSet(j); }
+
+  public void unionSet(int i, int j) { 
+    if (!isSameSet(i, j)) { 
+      int x = findSet(i), y = findSet(j);
+      // rank is used to keep the tree short
+      if (rank[x] > rank[y]){ 
+        p[y] = x;
+        drawers[x] = drawers[x] + drawers[y];
+        items[x] = items[x] + items[y];
+      }
+      else { 
+        p[x] = y;
+        drawers[y] = drawers[y] + drawers[x];
+        items[y] = items[y] + items[x];
+        if (rank[x] == rank[y]){
+          rank[y] = rank[y]+1;
+        }
+      }
+    } 
+  }
+}

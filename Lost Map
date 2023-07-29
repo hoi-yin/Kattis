@@ -1,0 +1,82 @@
+import java.util.*;
+import java.io.*;
+public class lostmap {
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter IAmSoDoneWithCS2040 = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+        
+        int NumofVillages;
+        String[] Line1 = br.readLine().split(" ");
+        NumofVillages = Integer.parseInt(Line1[0]);
+        
+        int[] Tracker = new int[NumofVillages];
+        HashMap<Integer, ArrayList<int[]>> WTF = new HashMap<Integer, ArrayList<int[]>>();
+        PriorityQueue<int[]> FML = new PriorityQueue<int[]>(new fkingCS2040());
+        
+        for(int i = 0; i<NumofVillages; i++){
+            ArrayList<int[]> CCB = new ArrayList<>();
+            String[] Line2 = br.readLine().split(" ");
+            for(int j = 0; j<NumofVillages;j++){
+                if(i!=j){
+                    int Knn = Integer.parseInt(Line2[j]);
+                    int[] Lj = new int[4];
+                    Lj[0] = i;
+                    Lj[1] = j;
+                    Lj[2] = j;
+                    Lj[3] = Knn;
+                    CCB.add(Lj);
+                }
+            }
+            WTF.put(i,CCB);
+        }
+        IdkWtfIAmDoing(WTF,Tracker,FML,0);
+        
+        for(int l=0;l<100000000;l++){
+            if (FML.size()==0){
+                break;
+            }
+            else{
+                int[] temp3 = FML.poll();
+                if(Tracker[temp3[3]]!=1){
+                    IdkWtfIAmDoing(WTF,Tracker,FML,temp3[3]);
+                    IAmSoDoneWithCS2040.print(temp3[0]+1);
+                    IAmSoDoneWithCS2040.print(" ");
+                    IAmSoDoneWithCS2040.print(temp3[1]+1);
+                    IAmSoDoneWithCS2040.println();
+                }
+            }
+        }
+        IAmSoDoneWithCS2040.flush();
+        IAmSoDoneWithCS2040.close();
+    }
+
+    public static void IdkWtfIAmDoing(HashMap<Integer, ArrayList<int[]>> WTF,int[] Tracker,PriorityQueue<int[]> FML,int a){
+        Tracker[a] = 1;
+        for(int k =0; k<WTF.get(a).size(); k++){
+            int[] temp = WTF.get(a).get(k);
+            if(Tracker[temp[2]]!=1){
+                int[] temp2 = new int[4];
+                temp2[0] = temp[0];
+                temp2[1] = temp[1];
+                temp2[2] = temp[3];
+                temp2[3] = temp[2];
+                FML.add(temp2);
+            }
+        }
+    }
+}
+
+class fkingCS2040 implements Comparator<int[]> {
+    @Override
+    public int compare(int[] p1, int[] p2) {
+        if(p1[2]<p2[2]){
+            return -1;
+        }
+        else if(p1[2]>p2[2]){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+}

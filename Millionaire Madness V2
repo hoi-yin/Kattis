@@ -1,0 +1,104 @@
+import java.util.*;
+import java.io.*;
+public class millionairemadness {
+  public static void main(String[] args)throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    PrintWriter output = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    
+    int row,col;
+    String[] Line1 = br.readLine().split(" ");
+    row = Integer.parseInt(Line1[0]);
+    col = Integer.parseInt(Line1[1]);
+    
+    int[][] vault = new int[row][col];
+    int[][] Tracker = new int[row][col];
+    
+    for(int i=0;i<row;i++){
+        String[] Line2 = br.readLine().split(" ");
+        for(int j=0;j<col;j++){
+            vault[i][j] = Integer.parseInt(Line2[j]);
+        }
+    }
+    
+    int[][] coordinatesdisplacement = new int[4][2];
+    coordinatesdisplacement[0][0] = 0;
+    coordinatesdisplacement[0][1] = -1;
+    coordinatesdisplacement[1][0] = 0;
+    coordinatesdisplacement[1][1] = 1;
+    coordinatesdisplacement[2][0] = -1;
+    coordinatesdisplacement[2][1] = 0;
+    coordinatesdisplacement[3][0] = 1;
+    coordinatesdisplacement[3][1] = 0;
+    
+    PriorityQueue<Displacement> Actions = new PriorityQueue<Displacement>(new infoComparator());
+    long ladder = 0;
+    Tracker[0][0] = 1;
+    Actions.add(new Displacement(0,0,vault[0][0],0));
+    
+    for(int k=0; k<1000000000; k++){
+        if(Tracker[row-1][col-1]==1 || Actions.size()==0){
+            break;
+        }
+        else{
+            Displacement temp = Actions.poll();
+            Tracker[temp.getRow()][temp.getCol()] = 1;
+            ladder = Math.max(temp.getDifference(), ladder);
+        
+            for(int l=0;l<4;l++){
+                int rows = temp.getRow() + coordinatesdisplacement[l][0];
+                int cols = temp.getCol() + coordinatesdisplacement[l][1];
+                if(rows>=0 && cols>=0 && rows<row && cols<col){
+                    if(Tracker[rows][cols]!=1){
+                        Actions.add(new Displacement(rows,cols,vault[rows][cols],vault[rows][cols]-temp.getHeight()));
+                    }
+                }
+            }
+        }
+    }
+    output.println(ladder);
+    output.flush();
+    output.close();
+  }
+}
+class Displacement {
+    
+    private final int r;
+    private final int c;
+    private final long height;
+    private final long difference;
+
+    Displacement(int r, int c, long height, long difference) {
+        this.r = r;
+        this.c = c;
+        this.height = height;
+        this.difference = difference;
+    }
+
+    int getRow() {
+        return this.r;
+    }
+
+    int getCol() {
+        return this.c;
+    }
+
+    long getHeight() {
+        return this.height;
+    }
+
+    long getDifference() {
+        return this.difference;
+    }
+}
+   
+class infoComparator implements Comparator<Displacement> {
+    public int compare(Displacement p1, Displacement p2) {
+        if(p1.getDifference()<p2.getDifference()){
+            return -1;
+        } else if (p1.getDifference()>p2.getDifference()){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+}

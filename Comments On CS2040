@@ -34,16 +34,27 @@ Tutorial and Lab Attendance: 5%
 One Day Assignment: 10 * 1.5%
 Take Home Assignment: 4 * 2 * 1.5%
 
-The module teaches about the different kinds of data structures. These data structures are used to solve coding problems efficiently and "easily" as compared to other methods such as hard coding. 
+The module teaches about the different kinds of data structures. These data structures are used to solve coding problems efficiently and "easily" as compared to other methods such as hard coding. Visualgo is used to visualize these data structures and Kattis is used for assignments and practices.
 
-Prof Chong Ket Fah is an excellent prof. He teaches well and gives a lot of guidance. 
+Prof Chong Ket Fah is an excellent prof. He teaches well and gives a lot of guidance. He takes time to explain the concepts and show us the visualization.
 
-Personally, 
+Midterms and Finals were quite manageable. Visualgo quiz was quite ok as long as you practiced enough on visualgo and can visualize the data structures well. The Kattis ODA and THA can be somewhat time consuming and cancerous to code out, especially when trying out the new data structures introduced. Moreover the code has space and time complexity restrictions so errors like Time Limit Exceeded becomes extremely common. The test cases also are not public so it can be pretty annoying to find what you missed.
 
-Finals: 
+"I will never touch Computer Science ever again after CS1010s." Famous last words from yours truly. I took this module to fulfil my CS minor requirements since why not suffer more when I have already suffered in MA1100 and CS1010s? I treated this module like a holiday and relaxing module. Hence, I did not hardcore study for this module and did minimum for this module due to medical reasons. So, take note of this while reading this review.
+
+Personally, this module was ok ok for me. I knew what the data structures were doing and their mechanics. However, I had trouble using them and did many trial and errors. I only understood the data structures on a surface level but not really on the algorithmic level. I would say CS2040 is CS1010s but in java. CS1010s makes use of a lot of data manipulation while CS2040 does not really. However, CS2040 have space and mainly time restrictions on the code that is used. Hence, the use of the data structures introduced is needed to overcome the restrictions. Another notable thing is time complexity, this guy called O(n), will come back to haunt you. It was fun while it lasted. By the way, Java basics is not taught during the lectures and you are expected to know the Java basics before the start of the course. For my batch, there was a 3 hour pre-recorded crash course video on Java basics so it was not a worry. Coursemology will not be there to tell you what test case you failed so be prepared to break your laptop. Visualgo is your best friend so make use of it!
+
+Some useful class codes:
+https://github.com/hoi-yin/...
+
+Finals:
 Midterm: 44/100 (25th percentile)
 Visualgo Quiz 1: 10/10
-Visualgo Quiz 2: 
-Tutorial and Lab Attendance: 
-One Day Assignment: 
-Take Home Assignment: 
+Visualgo Quiz 2:
+Tutorial and Lab Attendance:
+One Day Assignment:
+Take Home Assignment:
+
+Expected Grade : B/B-
+Final Grade : TBC
+No of students : 43
